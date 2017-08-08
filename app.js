@@ -5,6 +5,7 @@
 
 var express = require('express');
 var path = require('path');
+var redEnvelope = require('./routers/redEnvelope')
 
 var app = express();
 
@@ -14,8 +15,10 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+//随机红包活动
+app.use('/redEnvelope', redEnvelope)
 
-var PORT = parseInt(3000);
+var PORT = parseInt(3002);
 app.listen(PORT, function (err) {
   console.log('market activity is running on port:', PORT);
 

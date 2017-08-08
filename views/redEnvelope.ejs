@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>随机红包</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<h1>红包测试</h1>
+
+
+<p><a href="javascript:void(0);" id="redEnvelope">拆红包</a></p>
+
+</body>
+<script src="/socket.io.js"></script>
+<script src="//cdn1.lncld.net/static/js/2.5.0/av-min.js"></script>
+<script>
+    AV.init({
+        appId: "<%=appId%>",
+        appKey: "<%=appKey%>"
+    });
+
+    var socket = io.connect('http://localhost:8080');
+    var redEnvelope = document.getElementById('redEnvelope')
+    var activityId = "<%=activityId%>"
+
+    //更新活动页面点击量
+    AV.Cloud.run('activityIncrActivityPageView', {activityId: activityId}).then(() => {
+
+    })
+
+    redEnvelope.onclick = function () {
+        console.log("activity_request")
+        socket.emit('activity_request', {
+            activityId: activityId,
+            openid: "123456789qazwsxedcrfv",
+            city: '长沙'
+        })
+    }
+
+    socket.on('activity_response', function (data) {
+        console.log("activity_response", data);
+        alert(data.result)
+        socket.emit('offline', { openid: "123456789qazwsxedcrfv" });
+    })
+</script>
+</html>
