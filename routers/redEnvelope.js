@@ -31,6 +31,7 @@ router.get('/callback', function (req, res, next) {
       appId: GLOBAL_CONFIG.LC_APP_ID,
       appKey: GLOBAL_CONFIG.LC_APP_KEY,
       activityId: '59893a8761ff4b0057692905',
+      openid: openid,
     })
   }).catch((error) => {
     console.log(error)

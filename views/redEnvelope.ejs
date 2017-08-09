@@ -22,6 +22,7 @@
     var socket = io.connect('http://localhost:8080');
     var redEnvelope = document.getElementById('redEnvelope')
     var activityId = "<%=activityId%>"
+    var openid = "<%=openid%>"
 
     //更新活动页面点击量
     AV.Cloud.run('activityIncrActivityPageView', {activityId: activityId}).then(() => {
@@ -32,8 +33,7 @@
         console.log("activity_request")
         socket.emit('activity_request', {
             activityId: activityId,
-            openid: "123456789qazwsxedcrfv",
-            city: '长沙'
+            openid: openid,
         })
     }
 
